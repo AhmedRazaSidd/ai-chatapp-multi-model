@@ -1,10 +1,10 @@
+import HomePageContent from "@/components/HomePageContent";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div>
-      hello
-      <Button className="text-red-700">Click</Button>
+    <div className="flex-1">
+      <HomePageContent />
     </div>
   );
 }
