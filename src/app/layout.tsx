@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ChatSidebar from "@/components/ChatSidebar";
+import { AuthProvider } from "@/hooks/useAuth";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,10 +35,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex">
-            <ChatSidebar />
-            {children}
-          </div>
+          <AuthProvider>
+            <div className="min-h-screen flex">
+              <ChatSidebar />
+              {children}
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
