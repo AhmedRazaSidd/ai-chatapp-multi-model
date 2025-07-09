@@ -11,6 +11,26 @@ export interface AIOptions {
   model?: string;
 }
 
+export interface User {
+  uid: string;
+  email?: string;
+  displayName?: string;
+  photoURL?: string;
+  isAnonymous: boolean;
+  emailVerified?: boolean;
+}
+
+export interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signInAnonymously: () => Promise<void>;
+  signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+}
+
 export interface Messages {
   id: string;
   text: string;
