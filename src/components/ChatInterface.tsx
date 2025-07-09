@@ -161,7 +161,7 @@ const ChatInterface = () => {
           {/* Messages Area */}
           {/* Input Area */}
           <Card>
-            <CardContent className="pt-6">
+            <CardContent>
               <div className="flex space-x-2">
                 <div className="flex-1">
                   <Input
