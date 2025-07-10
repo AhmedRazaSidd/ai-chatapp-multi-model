@@ -1,7 +1,7 @@
 "use client";
 import { ChevronDown, Send, Sparkles } from "lucide-react";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { Badge } from "./ui/badge";
 import ModeToggle from "./ModeToggle";
 import { aiOptions, suggestedPrompt } from "@/constants/data";
@@ -14,9 +14,33 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
+import { AIProvider, Messages, User } from "@/types";
 
-const ChatInterface = () => {
-  const isAnonymous = true;
+interface ChatInterfaceProps {
+  messages: Messages[];
+  isAnonymous: boolean;
+  isLoading: boolean;
+  sendMessage: (text: string) => Promise<void>;
+  selectedAI: AIProvider;
+  setSelectedAI: Dispatch<SetStateAction<AIProvider>>;
+  user: User | null;
+  currentChatId: string | null;
+  createNewChat: () => Promise<string | null>;
+  routerPush: (url: string) => void;
+}
+
+const ChatInterface = ({
+  messages,
+  isAnonymous,
+  isLoading,
+  sendMessage,
+  selectedAI,
+  setSelectedAI,
+  user,
+  currentChatId,
+  createNewChat,
+  routerPush,
+}: ChatInterfaceProps) => {
   const [inputMessage, setInputMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
