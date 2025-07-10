@@ -15,13 +15,33 @@ import { useState } from "react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import AuthModal from "./AuthModal";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useChat } from "@/hooks/useChat";
 
 const ChatSidebar = () => {
+  const { user, signOut } = useAuth();
+  const {
+    currentChatId,
+    deleteChat,
+    isAnonymous,
+    createNewChat,
+    chats,
+    selectChat,
+  } = useChat();
   const [showAuthModel, setShowAuthModel] = useState(false);
   const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
-  const isAnonymous = true;
-  const handleSignOut = () => {};
+  const router = useRouter();
+
   const handleNewChat = () => {};
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   const SidebarContent = () => {
     return (
@@ -77,12 +97,14 @@ const ChatSidebar = () => {
                 <AvatarFallback
                   className={isAnonymous ? "bg-yellow-500" : "bg-blue-500"}
                 >
-                  <User />
+                  <User className="h-4 w-4 text-white" />
                 </AvatarFallback>
               </Avatar>
-              <div className="min-w-0 flex-1">
+              <div className="min-h-0 flex-1">
                 <p className="text-sm font-medium truncate line-clamp-1">
-                  Anonymous User
+                  {user?.displayName ||
+                    user?.email?.split("@")[0] ||
+                    "Anonymous User"}
                 </p>
                 <div className="flex mt-0.5 items-center space-x-1">
                   <Badge variant={isAnonymous ? "secondary" : "default"}>
@@ -104,8 +126,8 @@ const ChatSidebar = () => {
                   <LogIn className="h-4 w-4" />
                 </Button>
               ) : (
-                <Button variant="ghost" size="icon">
-                  <LogOut className="h-4 w-4" onClick={handleSignOut} />
+                <Button variant="ghost" size="icon" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4" />
                 </Button>
               )}
             </div>
