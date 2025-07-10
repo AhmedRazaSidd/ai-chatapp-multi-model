@@ -14,6 +14,7 @@ import { Card, CardContent } from "./ui/card";
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Badge } from "./ui/badge";
+import AuthModal from "./AuthModal";
 
 const ChatSidebar = () => {
   const [showAuthModel, setShowAuthModel] = useState(false);
@@ -98,7 +99,6 @@ const ChatSidebar = () => {
                   onClick={() => {
                     setAuthMode("signin");
                     setShowAuthModel(true);
-                    
                   }}
                 >
                   <LogIn className="h-4 w-4" />
@@ -119,6 +119,14 @@ const ChatSidebar = () => {
       <div className="hidden h-full lg:flex lg:w-80 lg:flex-col lg:border-r">
         <SidebarContent />
       </div>
+      <AuthModal
+        isOpen={showAuthModel}
+        mode={authMode}
+        onClose={() => setShowAuthModel(false)}
+        onSwitchMode={() => {
+          setAuthMode(authMode === "signin" ? "signup" : "signin");
+        }}
+      />
     </div>
   );
 };

@@ -69,6 +69,7 @@ export const useAuthProvider = () => {
       }
     );
   }, [initialized]);
+
   // Auto sign-in anonymously if no user after initialization
   useEffect(() => {
     if (initialized && !user && !loading) {
@@ -217,6 +218,7 @@ export const useAuthProvider = () => {
       }
     }
   };
+
   return {
     user,
     loading,
