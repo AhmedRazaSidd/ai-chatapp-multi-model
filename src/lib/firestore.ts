@@ -12,6 +12,7 @@ import {
   serverTimestamp,
   increment,
   getDocs,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { Messages, Chat, AIProvider } from "@/types";
@@ -37,15 +38,19 @@ export const addMessage = async (
       timestamp: serverTimestamp(),
       createdAt: serverTimestamp(),
     };
+
     const docRef = await addDoc(messagesCollection, messageData);
-    // Update chat's last message and message count
+
+    // ✅ Update chat's last message (create chat doc if it doesn't exist)
     await updateChatLastMessage(chatId, text);
+
     return docRef.id;
   } catch (error) {
     console.error("Error adding message:", error);
     throw error;
   }
 };
+
 
 // Create a new chat
 export const createChat = async (
@@ -78,12 +83,17 @@ export const updateChatLastMessage = async (
   lastMessage: string
 ) => {
   const chatRef = doc(chatsCollection, chatId);
-  await updateDoc(chatRef, {
-    lastMessage,
-    updatedAt: serverTimestamp(),
-    messageCount: increment(1),
-  });
+
   try {
+    await setDoc(
+      chatRef,
+      {
+        lastMessage,
+        updatedAt: serverTimestamp(),
+        messageCount: increment(1),
+      },
+      { merge: true } // ✅ Create if not exists
+    );
   } catch (error) {
     console.error("Error updating chat:", error);
     throw error;
