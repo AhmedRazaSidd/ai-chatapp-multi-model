@@ -1,6 +1,5 @@
-"use client";
 import { useAuth } from "@/hooks/useAuth";
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import {
@@ -22,15 +21,9 @@ interface AuthModalProps {
   onSwitchMode: () => void;
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({
-  isOpen,
-  onClose,
-  mode,
-  onSwitchMode,
-}) => {
+const AuthModal = ({ isOpen, onClose, mode, onSwitchMode }: AuthModalProps) => {
   const { signInWithEmail, signUpWithEmail, signInWithGoogle, resetPassword } =
     useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,9 +31,34 @@ const AuthModal: React.FC<AuthModalProps> = ({
   const [resetMode, setResetMode] = useState(false);
   const [resetSent, setResetSent] = useState(false);
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    setLoading(true);
+    setError("");
+
+    try {
+      if (mode === "signin") {
+        await signInWithEmail(email, password);
+      } else {
+        await signUpWithEmail(email, password);
+      }
+      onClose();
+    } catch (err) {
+      setError(
+        err && typeof err === "object" && "message" in err
+          ? String((err as { message: unknown }).message)
+          : "An error occurred"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleGoogleSignIn = async () => {
     setLoading(true);
     setError("");
+
     try {
       await signInWithGoogle();
       onClose();
@@ -74,32 +92,6 @@ const AuthModal: React.FC<AuthModalProps> = ({
       setLoading(false);
     }
   };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!email || !password) return;
-
-    setLoading(true);
-    setError("");
-
-    try {
-      if (mode === "signin") {
-        await signInWithEmail(email, password);
-      } else {
-        await signUpWithEmail(email, password);
-      }
-      onClose();
-    } catch (err) {
-      setError(
-        err && typeof err === "object" && "message" in err
-          ? String((err as { message: unknown }).message)
-          : "An error occurred"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
@@ -109,7 +101,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
               ? "Reset Password"
               : mode === "signin"
               ? "Sign In"
-              : "Signup"}
+              : "Sign Up"}
           </VisuallyHidden>
         </DialogTitle>
         <Card className="border-0 shadow-none">
@@ -129,11 +121,11 @@ const AuthModal: React.FC<AuthModalProps> = ({
                 ? "Enter your email to reset your password"
                 : mode === "signin"
                 ? "Sign in to access your chat history"
-                : "Join AI Chat App to save your conversation"}
+                : "Join AI Chat Hub to save your conversations"}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {resetMode ? (
+            {resetSent ? (
               <div className="text-center space-y-4">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
                   <Mail className="h-8 w-8 text-green-600 dark:text-green-400" />
@@ -172,23 +164,26 @@ const AuthModal: React.FC<AuthModalProps> = ({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Password
-                    </label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      minLength={6}
                       className="mt-1"
                     />
                   </div>
+                  {!resetMode && (
+                    <div className="space-y-2">
+                      <label htmlFor="password" className="text-sm font-medium">
+                        Password
+                      </label>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        minLength={6}
+                        className="mt-1"
+                      />
+                    </div>
+                  )}
                   {error && (
                     <Card className="border-destructive">
                       <CardContent className="pt-3">
@@ -202,7 +197,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                       : resetMode
                       ? "Send Reset Link"
                       : mode === "signin"
-                      ? "Signin"
+                      ? "Sign In"
                       : "Create Account"}
                   </Button>
                 </form>
@@ -213,14 +208,14 @@ const AuthModal: React.FC<AuthModalProps> = ({
                         <Separator />
                       </div>
                       <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-3 text-muted-foreground">
+                        <span className="bg-background px-2 text-muted-foreground">
                           Or continue with
                         </span>
                       </div>
                     </div>
                     <Button
                       type="button"
-                      variant="outline"
+                      variant={"outline"}
                       disabled={loading}
                       className="w-full mt-2"
                       onClick={handleGoogleSignIn}
@@ -242,9 +237,9 @@ const AuthModal: React.FC<AuthModalProps> = ({
                       <div>
                         <span className="text-muted-foreground">
                           {mode === "signin"
-                            ? "Don't have an account"
-                            : "Already have an account"}
-                        </span>{" "}
+                            ? "Don't have an account? "
+                            : "Already have an account? "}
+                        </span>
                         <Button
                           type="button"
                           variant="link"

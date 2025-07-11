@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "development" && typeof window !== undefined) {
     // connectFirestoreEmulator(db,'localhost',8000);
     // connectAuthEmulator(auth,'http://localhost:9099')
   } catch (error) {
-    console.log("Emulators already connected or not available");
+    console.log("Emulators already connected or not available", error);
   }
 }
 
