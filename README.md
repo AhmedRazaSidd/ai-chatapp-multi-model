@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🤖 AI ChatApp (Multi-Model)
 
-First, run the development server:
+A modern **AI Chat Application** built with **Next.js** that allows users to chat with multiple AI models in one place.  
+Supports both **anonymous chatting** and **authenticated sessions** with chat history.  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🌐 **Live Demo**: [ai-chatapp-multi-model.vercel.app](https://ai-chatapp-multi-model.vercel.app/)
+<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/918d37ae-a07d-492c-8495-42475070f48d" />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🔄 **Multi-Model Support**  
+   - **OpenAI GPT**  
+   - **Google Gemini**  
+   - **Groq (LLaMA / Mixtral)**  
 
-## Learn More
+- 💬 **Chat Functionality**  
+   - Anonymous chat (no login required)  
+   - Logged-in chat with saved history  
 
-To learn more about Next.js, take a look at the following resources:
+- 🔐 **Authentication**  
+   - Firebase Authentication (Google login)  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 🗂 **Chat History**  
+   - Save and retrieve past conversations  
+   - User-specific history when logged in  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 🎨 **Frontend**  
+   - Built with **Next.js (App Router)**  
+   - Clean and responsive UI  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend**: [Next.js](https://nextjs.org/) (React, App Router)  
+- **AI Models**:  
+  - [OpenAI](https://platform.openai.com/)  
+  - [Google Gemini](https://ai.google.dev/)  
+  - [Groq](https://groq.com/)  
+- **Auth & Database**: [Firebase](https://firebase.google.com/)  
+- **Deployment**: [Vercel](https://vercel.com/)  
+
+---
+
+## 🛠 Setup & Installation
+
+1. Clone the repo:  
+   ```bash
+   git clone https://github.com/your-username/ai-chatapp-multi-model.git
+   cd ai-chatapp-multi-model
+   ```
+
+2. Install dependencies:  
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env.local` file and add your keys:  
+   ```env
+   OPENAI_API_KEY=your_openai_key
+   GROQ_API_KEY=your_groq_key
+   GOOGLE_API_KEY=your_gemini_key
+   FIREBASE_API_KEY=your_firebase_key
+   FIREBASE_AUTH_DOMAIN=your_firebase_domain
+   FIREBASE_PROJECT_ID=your_firebase_project_id
+   ```
+
+4. Run the development server:  
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.  
+
+---
+
+## 📌 Roadmap
+
+- [ ] Add more AI models (Anthropic, Mistral)  
+- [ ] Add file upload for RAG  
+- [ ] Support voice input/output  
+- [ ] Advanced analytics for chat history  
+
+---
+
+## 📸 Screenshots  
+
+*(Add your app screenshots here — landing page, chat screen, login flow, etc.)*  
+
+---
+
+## 🙌 Contributing  
+
+Pull requests are welcome! For major changes, please open an issue first.  
+
+---
+
+## 📄 License  
+
+MIT License © 2025  
