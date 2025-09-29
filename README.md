@@ -47,7 +47,7 @@ Supports both **anonymous chatting** and **authenticated sessions** with chat hi
 
 1. Clone the repo:  
    ```bash
-   git clone https://github.com/your-username/ai-chatapp-multi-model.git
+   git clone https://github.com/AhmedRazaSidd/ai-chatapp-multi-model.git
    cd ai-chatapp-multi-model
    ```
 
