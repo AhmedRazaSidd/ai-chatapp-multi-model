@@ -5,9 +5,6 @@ A modern **AI Chat Application** built with **Next.js** that allows users to cha
 Supports both **anonymous chatting** and **authenticated sessions** with chat history.  
 
 🌐 **Live Demo**: [ai-chatapp-multi-model.vercel.app](https://ai-chatapp-multi-model.vercel.app/)
-
-<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/918d37ae-a07d-492c-8495-42475070f48d" />
-
 ---
 
 ## ✨ Features
@@ -76,20 +73,10 @@ Supports both **anonymous chatting** and **authenticated sessions** with chat hi
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.  
 
----
-
-## 📌 Roadmap
-
-- [ ] Add more AI models (Anthropic, Mistral)  
-- [ ] Add file upload for RAG  
-- [ ] Support voice input/output  
-- [ ] Advanced analytics for chat history  
-
----
 
 ## 📸 Screenshots  
 
-*(Add your app screenshots here — landing page, chat screen, login flow, etc.)*  
+<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/918d37ae-a07d-492c-8495-42475070f48d" />
 
 ---
 
